@@ -32,6 +32,7 @@ class TrailSearcher
         if (1.. Trail.all.length).include?(trail_num)
             sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
             TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
+        end 
 
     end 
 
