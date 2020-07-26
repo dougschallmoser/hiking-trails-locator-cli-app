@@ -1,8 +1,10 @@
-require 'nokogiri'
+require 'pry'
 
-## Scrapes data from specific trail page
+## Class that represents data retrieved from API
 
 class TrailDetails
+
+
 
 end 
 

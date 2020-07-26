@@ -1,6 +1,6 @@
 require 'pry'
 
-## Class that represents data retrieved from API/scraping
+## Class that represents data retrieved from API
 
 class Trail
 
