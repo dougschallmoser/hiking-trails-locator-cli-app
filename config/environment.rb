@@ -1,6 +1,7 @@
 require 'pry'
 require 'nokogiri'
 require 'json'
+require 'geocoder'
 
 require_relative '../lib/trail.rb'
 require_relative '../lib/trail_details.rb'
