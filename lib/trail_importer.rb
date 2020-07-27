@@ -1,6 +1,3 @@
-require 'json'
-require 'open-uri'
-require 'net/http'
 
 ## Imports data from Hiking Project API
 

@@ -1,4 +1,4 @@
-
+require 'pry'
 ## Is the interface for user interaction
 
 class TrailSearcher
@@ -71,22 +71,34 @@ class TrailSearcher
         puts "\nPlease enter the five digit zip code of where you would like to hike."
         sleep 1
         zip_code = gets.chomp
-        results = Geocoder.search(zip_code)
-        lat = results[0].data["lat"]
-        long = results[0].data["lon"]
-        puts "\nYou entered zip code: #{zip_code}."
-        sleep 1
-        puts "\nHow many miles would you like to extend your search?\n(Enter a number between 1 and 100):"
-        dist = gets.chomp
-        sleep 1
-        puts "\nYou entered #{dist} miles."
-        puts "\n"
-        sleep 1
-        puts "Here are the hikes available to you in order of trail length:"
-        puts "\n"
-        sleep 1
-        self.get_trails_from_lat_long(lat, long, dist)
-        puts "\n"
+        if zip_code.match(/^\d{5}$/)
+            results = Geocoder.search(zip_code)
+            lat = results[0].data["lat"]
+            long = results[0].data["lon"]
+            city = results[0].data["address"]["city"]
+            state = results[0].data["address"]["state"]
+            if city != nil || state != nil
+                puts "\nYou entered zip code #{zip_code} located in #{city}, #{state}."
+                sleep 1
+                puts "\nHow many miles from this location would you like to search for trails?\n(Enter a number between 1 and 100):"
+                dist = gets.chomp
+                sleep 1
+                puts "\nYou entered #{dist} miles."
+                puts "\n"
+                sleep 1
+                puts "Here are the hikes available to you in order of trail length:"
+                puts "\n"
+                sleep 1
+                self.get_trails_from_lat_long(lat, long, dist)
+                puts "\n"
+            else 
+                puts "\nThere is no record for zip code '#{zip_code}'."
+                self.prompt_and_display_trails
+            end 
+        else 
+            puts "\nYou entered '#{zip_code}' which is an invalid zip code."
+            self.prompt_and_display_trails 
+        end 
     end
 
 
@@ -120,15 +132,15 @@ class TrailSearcher
         specific_trail = TrailDetails.all.detect {|trail| trail == trail_detail}
         2.times {puts "\n"}
         puts "**********************************************"
-        puts "\nTrail Details for #{specific_trail.name.upcase}"
-        puts "\nLength: #{specific_trail.length} miles"
-        puts "Level of Difficulty: #{specific_trail.difficulty}"
-        puts "Dogs Allowed?: #{specific_trail.dogs}"
-        puts "Route Type: #{specific_trail.route}"
-        puts "Highest Elevation: #{specific_trail.high_elev}"
-        puts "Lowest Elevation: #{specific_trail.low_elev}"
-        puts "Elevation Gain: #{specific_trail.elev_gain}"
-        puts "\nDescription: #{specific_trail.description}\n"
+        puts "\nTrail Details for".colorize(:light_blue) + "#{specific_trail.name.upcase}"
+        puts "\nLength:".colorize(:light_blue) + "#{specific_trail.length} miles"
+        puts "Level of Difficulty:".colorize(:light_blue) + "#{specific_trail.difficulty}"
+        puts "Dogs Allowed?:".colorize(:light_blue) + "#{specific_trail.dogs}"
+        puts "Route Type:".colorize(:light_blue) + "#{specific_trail.route}"
+        puts "Highest Elevation:".colorize(:light_blue) + "#{specific_trail.high_elev}"
+        puts "Lowest Elevation:".colorize(:light_blue) + "#{specific_trail.low_elev}"
+        puts "Elevation Gain:".colorize(:light_blue) + "#{specific_trail.elev_gain}"
+        puts "\nDescription:".colorize(:light_blue) + "#{specific_trail.description}\n"
     end 
 
 end 

@@ -1,5 +1,3 @@
-require 'open-uri'
-require 'nokogiri'
 
 ## Scrapes data from specific trail page
 
