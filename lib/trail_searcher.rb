@@ -53,6 +53,7 @@ class TrailSearcher
                 puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' which is located in #{city}, #{state}."
                 sleep 1
                 self.prompt_distance 
+                
                 puts "\nHere are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":\n"
                 self.get_trails_from_lat_long(lat, long, @dist)
             else 
@@ -121,9 +122,14 @@ class TrailSearcher
     end 
 
     def get_trails_from_lat_long(lat, long, dist)
-        trails_array = TrailImporter.get_trails_by_lat_long(lat, long, dist)
-        Trail.create_from_collection(trails_array)
-        self.list_trails
+        if TrailImporter.get_trails_by_lat_long(lat,long,dist)[0] != nil
+            trails_array = TrailImporter.get_trails_by_lat_long(lat, long, dist)
+            Trail.create_from_collection(trails_array)
+            self.list_trails
+        else 
+            puts "\nThere are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles.".colorize(:light_red)
+            self.prompt_and_display_trails
+        end 
     end
 
     def list_trails
