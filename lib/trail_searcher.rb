@@ -17,7 +17,7 @@ class TrailSearcher
         long = results[0].data["lon"]
         puts "\nYou entered zip code: #{zip_code}."
         sleep 1
-        puts "\nNext, how many miles would you like to extend your search? (Enter a number between 1 and 100):"
+        puts "\nHow many miles would you like to extend your search?\n(Enter a number between 1 and 100):"
         dist = gets.chomp
         sleep 1
         puts "\nYou entered #{dist} miles."
@@ -44,7 +44,7 @@ class TrailSearcher
         if (1..Trail.all.length).include?(trail_num)
             sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
             puts "\nYou requested more details for #{sorted_trails[trail_num - 1].name.upcase}"
-            sleep 1.5
+            sleep 2
             detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
             trail_detail = TrailDetails.new(detail_hash)
             self.list_trail_details(trail_detail)
@@ -54,7 +54,7 @@ class TrailSearcher
     def list_trails
         sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
         sorted_trails.each_with_index do |trail, index|
-            puts "#{index + 1}. #{trail.name.upcase} - Length: #{trail.length} mi - #{trail.summary}"
+            puts "#{index + 1}. #{trail.name.upcase} - Length: #{trail.length} mi - #{trail.summary}\n"
         end
     end 
 
@@ -70,7 +70,7 @@ class TrailSearcher
         puts "Highest Elevation: #{specific_trail.high_elev}"
         puts "Lowest Elevation: #{specific_trail.low_elev}"
         puts "Elevation Gain: #{specific_trail.elev_gain}"
-        puts "\nDescription: #{specific_trail.description}"
+        puts "\nDescription: #{specific_trail.description}\n"
     end 
 
     def greeting
@@ -100,7 +100,7 @@ class TrailSearcher
             sleep 0.04
             print "."
         end
-        5.times {puts "\n"}
+        4.times {puts "\n"}
         puts "******** Hiking Trail CLI Application ********"
         puts "\nWith this application, you will be able to\nlocate hiking trails anywhere in the United States."
         puts "\n**********************************************"
