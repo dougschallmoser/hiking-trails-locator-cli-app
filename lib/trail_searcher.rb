@@ -9,7 +9,32 @@ class TrailSearcher
 
     def run
         self.greeting 
-        puts "\nTo begin, please enter the five digit zip code of where you would like to hike."
+        self.prompt_and_display_trails 
+        self.get_trail_details
+        user_input = ""
+        until user_input == "exit" || user_input == "2"
+            puts "\n**********************************************"
+            puts "\nEnter '1' to go back to your list of trails."
+            puts "Enter '2' to enter a new zip code."
+            puts "Enter '3' or 'exit' to close this application."
+            user_input = gets.chomp
+            case user_input
+            when "1"
+                puts "\n"
+                self.list_trails 
+                self.get_trail_details
+            when "2"
+                puts "\n"
+                Trail.all.clear
+                self.prompt_and_display_trails 
+            when "3"
+                exit 
+            end 
+        end
+    end 
+
+    def prompt_and_display_trails
+        puts "\nPlease enter the five digit zip code of where you would like to hike."
         sleep 1
         zip_code = gets.chomp
         results = Geocoder.search(zip_code)
@@ -28,10 +53,9 @@ class TrailSearcher
         sleep 1
         self.get_trails_from_lat_long(lat, long, dist)
         puts "\n"
-        puts "To get more details about a specific trail, please enter the number corresponding to that trail:"
-        self.get_trail_details
+    end
 
-    end 
+
 
     def get_trails_from_lat_long(lat, long, dist)
         trails_array = TrailImporter.get_trails_by_lat_long(lat, long, dist)
@@ -40,11 +64,12 @@ class TrailSearcher
     end
 
     def get_trail_details
+        puts "\nTo get more details about a specific trail, please enter the number corresponding to that trail:"
         trail_num = gets.chomp.to_i
         if (1..Trail.all.length).include?(trail_num)
             sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
-            puts "\nYou requested more details for #{sorted_trails[trail_num - 1].name.upcase}"
-            sleep 2
+            puts "\nYou requested more details for #{sorted_trails[trail_num - 1].name.upcase}..."
+            sleep 1
             detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
             trail_detail = TrailDetails.new(detail_hash)
             self.list_trail_details(trail_detail)
