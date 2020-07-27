@@ -14,54 +14,18 @@ class TrailSearcher
         self.exit_prompt
     end 
 
-    def exit_prompt
-        user_input = ""
-        until user_input == "exit" || user_input == "2"
-            puts "\n**********************************************"
-            puts "\nEnter '" + "1".colorize(:light_yellow) + "' to go back to your list of trails."
-            puts "Enter '" + "2".colorize(:light_yellow) + "' to enter a new zip code."
-            puts "Enter '" + "exit".colorize(:light_yellow) + "' to close this application."
-            user_input = gets.chomp
-            if user_input == "1"
-                puts "\n"
-                self.list_trails 
-                self.get_trail_details
-                user_input = ""
-            elsif user_input == "2"
-                Trail.all.clear
-                self.prompt_and_display_trails 
-                self.get_trail_details
-                user_input = ""
-            elsif user_input != "exit"
-                puts "\nYour input of '".colorize(:light_red) + "#{user_input}".colorize(:light_yellow) + "' is invalid! Please follow the instructions below:".colorize(:light_red)
-            end 
-        end
-    end 
-
     def greeting
         puts "\nWhat is your name? "
         user_name = gets.chomp
         if user_name.match(/^[a-zA-z]+$/)
             print "\nWelcome, " + "#{user_name.capitalize}".colorize(:light_yellow) + "!"
-            3.times do
-                sleep 0.5
-                print "."
-            end
+            self.dot_delay(3, 0.5)
             print "to"
-            3.times do
-                sleep 0.3
-                print "."
-            end
+            self.dot_delay(3, 0.3)
             sleep 0.3
             print "the"
-            5.times do
-                sleep 0.3
-                print "."
-            end 
-            13.times do 
-                sleep 0.04
-                print "."
-            end
+            self.dot_delay(5, 0.3)
+            self.dot_delay(13, 0.04)
             4.times {puts "\n"}
             puts "********* " + "Hiking Trail CLI Application".colorize(:light_yellow) + " *********"
             puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:cyan)
@@ -117,13 +81,6 @@ class TrailSearcher
         end 
     end
 
-
-    def get_trails_from_lat_long(lat, long, dist)
-        trails_array = TrailImporter.get_trails_by_lat_long(lat, long, dist)
-        Trail.create_from_collection(trails_array)
-        self.list_trails
-    end
-
     def get_trail_details
         puts "\nTo get more details about a specific trail, please enter the " + "number".colorize(:light_yellow) + " corresponding to that trail:"
         trail_num = gets.chomp.to_i
@@ -139,6 +96,36 @@ class TrailSearcher
             self.get_trail_details 
         end 
     end 
+
+    def exit_prompt
+        user_input = ""
+        until user_input == "exit" || user_input == "2"
+            puts "\n**********************************************"
+            puts "\nEnter '" + "1".colorize(:light_yellow) + "' to go back to your list of trails."
+            puts "Enter '" + "2".colorize(:light_yellow) + "' to enter a new zip code."
+            puts "Enter '" + "exit".colorize(:light_yellow) + "' to close this application."
+            user_input = gets.chomp
+            if user_input == "1"
+                puts "\n"
+                self.list_trails 
+                self.get_trail_details
+                user_input = ""
+            elsif user_input == "2"
+                Trail.all.clear
+                self.prompt_and_display_trails 
+                self.get_trail_details
+                user_input = ""
+            elsif user_input != "exit"
+                puts "\nYour input of '".colorize(:light_red) + "#{user_input}".colorize(:light_yellow) + "' is invalid! Please follow the instructions below:".colorize(:light_red)
+            end 
+        end
+    end 
+
+    def get_trails_from_lat_long(lat, long, dist)
+        trails_array = TrailImporter.get_trails_by_lat_long(lat, long, dist)
+        Trail.create_from_collection(trails_array)
+        self.list_trails
+    end
 
     def list_trails
         sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
@@ -160,6 +147,13 @@ class TrailSearcher
         puts "Lowest Elevation: ".colorize(:cyan) + "#{specific_trail.low_elev}"
         puts "Elevation Gain: ".colorize(:cyan) + "#{specific_trail.elev_gain}"
         puts "\nDescription: ".colorize(:cyan) + "#{specific_trail.description}\n"
+    end 
+
+    def dot_delay(times, delay)
+        times.times do 
+            sleep delay
+            print "."
+        end
     end 
 
 end 
