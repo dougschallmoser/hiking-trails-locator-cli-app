@@ -3,6 +3,8 @@
 
 class TrailSearcher
 
+    attr_accessor :dist 
+
     def initialize
     end
 
@@ -43,34 +45,16 @@ class TrailSearcher
         zip_code = gets.chomp
         if zip_code.match(/^\d{5}$/)
             results = Geocoder.search(zip_code)
-            if results[0] != nil
+            if results[0] != nil && results[0].data["address"]["city"] != nil
                 lat = results[0].data["lat"]
                 long = results[0].data["lon"]
                 city = results[0].data["address"]["city"]
                 state = results[0].data["address"]["state"]
-                if city != nil 
-                    puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' which is located in #{city}, #{state}."
-                    sleep 1
-                    puts "\nHow many miles from this location would you like to search for trails?\n(Enter a number between 1 and 100):"
-                    dist = gets.chomp.to_i
-                    if (1..100).include?(dist)
-                        sleep 1
-                        puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles."
-                        puts "\n"
-                        sleep 1
-                        puts "Here are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
-                        puts "\n"
-                        sleep 1
-                        self.get_trails_from_lat_long(lat, long, dist)
-                        puts "\n"
-                    else
-                        puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
-                        self.prompt_and_display_trails
-                    end 
-                else 
-                    puts "\nThere is no record for zip code '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "'.".colorize(:light_red)
-                    self.prompt_and_display_trails
-                end 
+                puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' which is located in #{city}, #{state}."
+                sleep 1
+                self.prompt_distance 
+                puts "\nHere are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
+                self.get_trails_from_lat_long(lat, long, @dist)
             else 
                 puts "\nThere is no record for zip code '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "'.".colorize(:light_red)
                 self.prompt_and_display_trails
@@ -79,6 +63,19 @@ class TrailSearcher
             puts "\nYou entered '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "' which is an invalid zip code.".colorize(:light_red)
             self.prompt_and_display_trails 
         end 
+    end
+
+    def prompt_distance
+        puts "\nHow many miles from this location would you like to search for trails?\n(Enter a number between 1 and 100):"
+        @dist = gets.chomp.to_i
+            if (1..100).include?(dist)
+                puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
+                sleep 1
+                puts "\n"
+            else
+                puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
+                self.prompt_distance 
+            end 
     end
 
     def get_trail_details
