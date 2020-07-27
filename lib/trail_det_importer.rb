@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'nokogiri'
-require 'pry'
 
 ## Scrapes data from specific trail page
 
@@ -23,13 +22,9 @@ class TrailDetailImporter
         details[:elev_gain] = doc.css("div.mt-2#trail-stats-bar h3")[5].css("span.imperial").text.strip
         details[:dogs] = doc.css("div.main-content-container div.mb-1 h3.inline")[0].css("span.font-body").text.strip
         details
-        
     end 
     
-
 end 
 
-# new = TrailDetailImporter.get_trail_details("https://www.hikingproject.com/trail/7000130/bear-peak-out-and-back")
-# puts new 
 
 

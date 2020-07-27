@@ -1,4 +1,3 @@
-require 'pry'
 
 ## Class that represents data retrieved from API
 
@@ -16,7 +15,6 @@ class TrailDetails
     def self.all
         @@all 
     end 
-
 
 end 
 

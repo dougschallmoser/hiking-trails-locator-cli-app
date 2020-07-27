@@ -1,4 +1,3 @@
-require 'pry'
 
 ## Is the interface for user interaction
 
@@ -131,6 +130,5 @@ class TrailSearcher
         2.times {puts "\n"}
         sleep 1
     end
-
 
 end 

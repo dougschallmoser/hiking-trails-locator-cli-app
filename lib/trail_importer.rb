@@ -1,5 +1,4 @@
 require 'json'
-require 'pry'
 require 'open-uri'
 require 'net/http'
 
@@ -29,7 +28,4 @@ class TrailImporter
     end
 
 end
-
-# new = TrailImporter.get_trails_by_lat_long(48.71, -122.5)
-# binding.pry
 
