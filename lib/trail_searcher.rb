@@ -43,6 +43,8 @@ class TrailSearcher
         trail_num = gets.chomp.to_i
         if (1..Trail.all.length).include?(trail_num)
             sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
+            puts "\nYou requested more details for #{sorted_trails[trail_num - 1].name.upcase}"
+            sleep 1.5
             detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
             trail_detail = TrailDetails.new(detail_hash)
             self.list_trail_details(trail_detail)
@@ -58,17 +60,17 @@ class TrailSearcher
 
     def list_trail_details(trail_detail)
         specific_trail = TrailDetails.all.detect {|trail| trail == trail_detail}
-        puts "\nTRAIL DETAILS:"
-        puts "\nTrail Name: #{specific_trail.name}"
-        puts "Overview: #{specific_trail.overview}"
-        puts "Length: #{specific_trail.length}"
+        2.times {puts "\n"}
+        puts "**********************************************"
+        puts "\nTrail Details for #{specific_trail.name.upcase}"
+        puts "\nLength: #{specific_trail.length} miles"
         puts "Level of Difficulty: #{specific_trail.difficulty}"
         puts "Dogs Allowed?: #{specific_trail.dogs}"
         puts "Route Type: #{specific_trail.route}"
         puts "Highest Elevation: #{specific_trail.high_elev}"
         puts "Lowest Elevation: #{specific_trail.low_elev}"
-        puts "Highest Elevation: #{specific_trail.high_elev}"
         puts "Elevation Gain: #{specific_trail.elev_gain}"
+        puts "\nDescription: #{specific_trail.description}"
     end 
 
     def greeting
@@ -98,13 +100,12 @@ class TrailSearcher
             sleep 0.04
             print "."
         end
-        puts "\n"
-        puts "\n"
+        5.times {puts "\n"}
         puts "******** Hiking Trail CLI Application ********"
-        sleep 4
         puts "\nWith this application, you will be able to\nlocate hiking trails anywhere in the United States."
         puts "\n**********************************************"
-        sleep 4
+        3.times {puts "\n"}
+        sleep 2
     end
 
 

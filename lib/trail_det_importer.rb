@@ -11,7 +11,6 @@ class TrailDetailImporter
         details = {}
         details[:name] = doc.css("div.row").css("h1").text.strip
         details[:difficulty] = doc.css("div.trail-subheader span.difficulty-text").text.strip
-        details[:overview] = doc.css("div.main-content-container").css("div.mb-1")[3].text.strip
         details[:description] = doc.css("div.main-content-container").css("div.mb-1")[4].text.strip
         details[:length] = doc.css("div.mt-2#trail-stats-bar h3")[0].text.strip
         details[:route] = doc.css("div.mt-2#trail-stats-bar h3")[2].text.strip

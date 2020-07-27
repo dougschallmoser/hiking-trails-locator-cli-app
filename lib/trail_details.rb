@@ -4,7 +4,7 @@ require 'pry'
 
 class TrailDetails
 
-    attr_accessor :name, :difficulty, :overview, :description, :length, :route, :high_elev, :low_elev, :elev_gain, :dogs
+    attr_accessor :name, :difficulty, :description, :length, :route, :high_elev, :low_elev, :elev_gain, :dogs
 
     @@all = []
 
