@@ -39,7 +39,6 @@ class TrailSearcher
 
     def greeting
         puts "\nHello!"
-        sleep 2
         puts "\nWhat is your name? "
         user_name = gets.chomp
         sleep 1
@@ -122,6 +121,9 @@ class TrailSearcher
             detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
             trail_detail = TrailDetails.new(detail_hash)
             self.list_trail_details(trail_detail)
+        else
+            puts "\nYou entered '".colorize(:light_red) + "#{trail_num}".colorize(:light_yellow) + "' which is not a valid choice.".colorize(:light_red)
+            self.get_trail_details 
         end 
     end 
 
