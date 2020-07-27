@@ -53,7 +53,7 @@ class TrailSearcher
                 puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' which is located in #{city}, #{state}."
                 sleep 1
                 self.prompt_distance 
-                puts "\nHere are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
+                puts "\nHere are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":\n"
                 self.get_trails_from_lat_long(lat, long, @dist)
             else 
                 puts "\nThere is no record for zip code '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "'.".colorize(:light_red)
@@ -66,9 +66,9 @@ class TrailSearcher
     end
 
     def prompt_distance
-        puts "\nHow many miles from this location would you like to search for trails?\n(Enter a number between 1 and 100):"
-        @dist = gets.chomp.to_i
-            if (1..100).include?(dist)
+        puts "\nHow many miles from this location would you like to search for trails?\ (Enter a number between 1 and 100):"
+        @dist = gets.chomp
+            if (1..100).include?(dist.to_i) && dist.match(/^\d+$/)
                 puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
                 sleep 1
                 puts "\n"
@@ -80,12 +80,12 @@ class TrailSearcher
 
     def get_trail_details
         puts "\nTo get more details about a specific trail, please enter the " + "number".colorize(:light_yellow) + " corresponding to that trail:"
-        trail_num = gets.chomp.to_i
-        if (1..Trail.all.length).include?(trail_num)
+        trail_num = gets.chomp
+        if (1..Trail.all.length).include?(trail_num.to_i)
             sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
-            puts "\nYou requested more details for" + " #{sorted_trails[trail_num - 1].name.upcase}".colorize(:light_yellow) + "..."
+            puts "\nYou requested more details for" + " #{sorted_trails[trail_num.to_i - 1].name.upcase}".colorize(:light_yellow) + "..."
             sleep 1
-            detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
+            detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num.to_i - 1].url)
             trail_detail = TrailDetails.new(detail_hash)
             self.list_trail_details(trail_detail)
         else
@@ -103,11 +103,13 @@ class TrailSearcher
             puts "Enter '" + "exit".colorize(:light_yellow) + "' to close this application."
             user_input = gets.chomp
             if user_input == "1"
+                puts "\nYou entered '" + "1".colorize(:light_yellow) + "'."
                 puts "\n"
                 self.list_trails 
                 self.get_trail_details
                 user_input = ""
             elsif user_input == "2"
+                puts "\nYou entered '" + "2".colorize(:light_yellow) + "'."
                 Trail.all.clear
                 self.prompt_and_display_trails 
                 self.get_trail_details
