@@ -33,6 +33,40 @@ class TrailSearcher
         end
     end 
 
+    def greeting
+        puts "\nHello!"
+        sleep 2
+        puts "\nWhat is your name? "
+        user_name = gets.chomp
+        sleep 1
+        print "\nWelcome, #{user_name.capitalize}!"
+        3.times do
+            sleep 0.5
+            print "."
+        end
+        print "to"
+        3.times do
+            sleep 0.3
+            print "."
+        end
+        sleep 0.3
+        print "the"
+        5.times do
+            sleep 0.3
+            print "."
+        end 
+        13.times do 
+            sleep 0.04
+            print "."
+        end
+        5.times {puts "\n"}
+        puts "******** Hiking Trail CLI Application ********"
+        puts "\nWith this application, you will be able to\nlocate hiking trails anywhere in the United States."
+        puts "\n**********************************************"
+        2.times {puts "\n"}
+        sleep 1
+    end
+
     def prompt_and_display_trails
         puts "\nPlease enter the five digit zip code of where you would like to hike."
         sleep 1
@@ -96,39 +130,5 @@ class TrailSearcher
         puts "Elevation Gain: #{specific_trail.elev_gain}"
         puts "\nDescription: #{specific_trail.description}\n"
     end 
-
-    def greeting
-        puts "\nHello!"
-        sleep 2
-        puts "\nWhat is your name? "
-        user_name = gets.chomp
-        sleep 1
-        print "\nWelcome, #{user_name}!"
-        3.times do
-            sleep 0.5
-            print "."
-        end
-        print "to"
-        3.times do
-            sleep 0.3
-            print "."
-        end
-        sleep 0.3
-        print "the"
-        5.times do
-            sleep 0.3
-            print "."
-        end 
-        13.times do 
-            sleep 0.04
-            print "."
-        end
-        5.times {puts "\n"}
-        puts "******** Hiking Trail CLI Application ********"
-        puts "\nWith this application, you will be able to\nlocate hiking trails anywhere in the United States."
-        puts "\n**********************************************"
-        2.times {puts "\n"}
-        sleep 1
-    end
 
 end 
