@@ -28,7 +28,7 @@ class TrailSearcher
                 self.prompt_and_display_trails 
                 self.get_trail_details
                 user_input = ""
-            else
+            elsif user_input != "exit"
                 puts "\nYour input of '#{user_input}' is invalid! Please follow the instructions below:"
             end 
         end
