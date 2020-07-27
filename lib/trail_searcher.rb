@@ -1,3 +1,5 @@
+require 'pry'
+
 ## Is the interface for user interaction
 
 class TrailSearcher
@@ -20,32 +22,53 @@ class TrailSearcher
         sleep 1
         puts "\nYou entered #{dist} miles."
         puts "\n"
-        sleep 0.5
+        sleep 1
         puts "Here are the hikes available to you in order of trail length:"
         puts "\n"
         sleep 1
         self.get_trails_from_lat_long(lat, long, dist)
-        self.list_trails
         puts "\n"
         puts "To get more details about a specific trail, please enter the number corresponding to that trail:"
-        trail_num = gets.chomp.to_i
-        if (1.. Trail.all.length).include?(trail_num)
-            sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
-            TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
-        end 
+        self.get_trail_details
 
     end 
 
     def get_trails_from_lat_long(lat, long, dist)
         trails_array = TrailImporter.get_trails_by_lat_long(lat, long, dist)
         Trail.create_from_collection(trails_array)
+        self.list_trails
     end
+
+    def get_trail_details
+        trail_num = gets.chomp.to_i
+        if (1..Trail.all.length).include?(trail_num)
+            sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
+            detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
+            trail_detail = TrailDetails.new(detail_hash)
+            self.list_trail_details(trail_detail)
+        end 
+    end 
 
     def list_trails
         sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
         sorted_trails.each_with_index do |trail, index|
             puts "#{index + 1}. #{trail.name.upcase} - Length: #{trail.length} mi - #{trail.summary}"
         end
+    end 
+
+    def list_trail_details(trail_detail)
+        specific_trail = TrailDetails.all.detect {|trail| trail == trail_detail}
+        puts "\nTRAIL DETAILS:"
+        puts "\nTrail Name: #{specific_trail.name}"
+        puts "Overview: #{specific_trail.overview}"
+        puts "Length: #{specific_trail.length}"
+        puts "Level of Difficulty: #{specific_trail.difficulty}"
+        puts "Dogs Allowed?: #{specific_trail.dogs}"
+        puts "Route Type: #{specific_trail.route}"
+        puts "Highest Elevation: #{specific_trail.high_elev}"
+        puts "Lowest Elevation: #{specific_trail.low_elev}"
+        puts "Highest Elevation: #{specific_trail.high_elev}"
+        puts "Elevation Gain: #{specific_trail.elev_gain}"
     end 
 
     def greeting
