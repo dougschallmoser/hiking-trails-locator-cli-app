@@ -13,9 +13,9 @@ class TrailSearcher
         user_input = ""
         until user_input == "exit" || user_input == "2"
             puts "\n**********************************************"
-            puts "\nEnter '1' to go back to your list of trails."
-            puts "Enter '2' to enter a new zip code."
-            puts "Enter 'exit' to close this application."
+            puts "\nEnter '" + "1".colorize(:cyan) + "' to go back to your list of trails."
+            puts "Enter '" + "2".colorize(:cyan) + "' to enter a new zip code."
+            puts "Enter '" + "exit".colorize(:cyan) + "' to close this application."
             user_input = gets.chomp
             if user_input == "1"
                 puts "\n"
@@ -59,10 +59,10 @@ class TrailSearcher
             sleep 0.04
             print "."
         end
-        5.times {puts "\n"}
-        puts "******** Hiking Trail CLI Application ********"
-        puts "\nWith this application, you will be able to\nlocate hiking trails anywhere in the United States."
-        puts "\n**********************************************"
+        4.times {puts "\n"}
+        puts "********* " + "Hiking Trail CLI Application".colorize(:light_yellow) + " *********"
+        puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:cyan)
+        puts "\n************************************************"
         2.times {puts "\n"}
         sleep 1
     end
@@ -78,15 +78,15 @@ class TrailSearcher
             city = results[0].data["address"]["city"]
             state = results[0].data["address"]["state"]
             if city != nil || state != nil
-                puts "\nYou entered zip code #{zip_code} located in #{city}, #{state}."
+                puts "\nYou entered zip code '" + "#{zip_code}".colorize(:cyan) + "' located in #{city}, #{state}."
                 sleep 1
                 puts "\nHow many miles from this location would you like to search for trails?\n(Enter a number between 1 and 100):"
                 dist = gets.chomp
                 sleep 1
-                puts "\nYou entered #{dist} miles."
+                puts "\nYou entered '" + "#{dist}".colorize(:cyan) + "' miles."
                 puts "\n"
                 sleep 1
-                puts "Here are the hikes available to you in order of trail length:"
+                puts "Here are the trails available within " + "#{dist} miles".colorize(:cyan) + " of" + " #{city}, #{state} #{zip_code}".colorize(:cyan) + ":"
                 puts "\n"
                 sleep 1
                 self.get_trails_from_lat_long(lat, long, dist)
@@ -109,11 +109,11 @@ class TrailSearcher
     end
 
     def get_trail_details
-        puts "\nTo get more details about a specific trail, please enter the number corresponding to that trail:"
+        puts "\nTo get more details about a specific trail, please enter the " + "number".colorize(:light_yellow) + " corresponding to that trail:"
         trail_num = gets.chomp.to_i
         if (1..Trail.all.length).include?(trail_num)
             sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
-            puts "\nYou requested more details for #{sorted_trails[trail_num - 1].name.upcase}..."
+            puts "\nYou requested more details for" + " #{sorted_trails[trail_num - 1].name.upcase}".colorize(:cyan) + "..."
             sleep 1
             detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num - 1].url)
             trail_detail = TrailDetails.new(detail_hash)
@@ -124,7 +124,7 @@ class TrailSearcher
     def list_trails
         sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
         sorted_trails.each_with_index do |trail, index|
-            puts "#{index + 1}. #{trail.name.upcase} - Length: #{trail.length} mi - #{trail.summary}\n"
+            puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:cyan) + " -" + " Length: #{trail.length} mi".colorize(:cyan) + " - #{trail.summary}\n"
         end
     end 
 
@@ -132,15 +132,15 @@ class TrailSearcher
         specific_trail = TrailDetails.all.detect {|trail| trail == trail_detail}
         2.times {puts "\n"}
         puts "**********************************************"
-        puts "\nTrail Details for".colorize(:light_blue) + "#{specific_trail.name.upcase}"
-        puts "\nLength:".colorize(:light_blue) + "#{specific_trail.length} miles"
-        puts "Level of Difficulty:".colorize(:light_blue) + "#{specific_trail.difficulty}"
-        puts "Dogs Allowed?:".colorize(:light_blue) + "#{specific_trail.dogs}"
-        puts "Route Type:".colorize(:light_blue) + "#{specific_trail.route}"
-        puts "Highest Elevation:".colorize(:light_blue) + "#{specific_trail.high_elev}"
-        puts "Lowest Elevation:".colorize(:light_blue) + "#{specific_trail.low_elev}"
-        puts "Elevation Gain:".colorize(:light_blue) + "#{specific_trail.elev_gain}"
-        puts "\nDescription:".colorize(:light_blue) + "#{specific_trail.description}\n"
+        puts "\nTrail Details for ".colorize(:light_yellow) + "#{specific_trail.name.upcase}".colorize(:cyan)
+        puts "\nLength: ".colorize(:cyan) + "#{specific_trail.length} miles"
+        puts "Level of Difficulty: ".colorize(:cyan) + "#{specific_trail.difficulty}"
+        puts "Dogs Allowed?: ".colorize(:cyan) + "#{specific_trail.dogs}"
+        puts "Route Type:".colorize(:cyan) + "#{specific_trail.route}"
+        puts "Highest Elevation: ".colorize(:cyan) + "#{specific_trail.high_elev}"
+        puts "Lowest Elevation: ".colorize(:cyan) + "#{specific_trail.low_elev}"
+        puts "Elevation Gain: ".colorize(:cyan) + "#{specific_trail.elev_gain}"
+        puts "\nDescription: ".colorize(:cyan) + "#{specific_trail.description}\n"
     end 
 
 end 
