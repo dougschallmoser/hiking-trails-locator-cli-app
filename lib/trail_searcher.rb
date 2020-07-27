@@ -7,32 +7,6 @@ class TrailSearcher
     def initialize
     end
 
-    # def run
-    #     self.greeting 
-    #     self.prompt_and_display_trails 
-    #     self.get_trail_details
-    #     user_input = ""
-    #     until user_input == "exit" || user_input == "2"
-    #         puts "\n**********************************************"
-    #         puts "\nEnter '1' to go back to your list of trails."
-    #         puts "Enter '2' to enter a new zip code."
-    #         puts "Enter '3' or 'exit' to close this application."
-    #         user_input = gets.chomp
-    #         case user_input
-    #         when "1"
-    #             puts "\n"
-    #             self.list_trails 
-    #             self.get_trail_details
-    #         when "2"
-    #             puts "\n"
-    #             Trail.all.clear
-    #             self.prompt_and_display_trails 
-    #         when "3"
-    #             exit 
-    #         end 
-    #     end
-    # end 
-
     def run
         self.greeting
         self.prompt_and_display_trails
@@ -44,17 +18,18 @@ class TrailSearcher
             puts "Enter '2' to enter a new zip code."
             puts "Enter 'exit' to close this application."
             user_input = gets.chomp
-            case user_input
-            when "1"
+            if user_input == "1"
                 puts "\n"
                 self.list_trails 
                 self.get_trail_details
                 user_input = ""
-            when "2"
+            elsif user_input == "2"
                 Trail.all.clear
                 self.prompt_and_display_trails 
                 self.get_trail_details
                 user_input = ""
+            else
+                puts "\nYour input of '#{user_input}' is invalid! Please follow the instructions below:"
             end 
         end
     end 
