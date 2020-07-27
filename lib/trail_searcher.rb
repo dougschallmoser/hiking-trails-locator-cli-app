@@ -7,6 +7,7 @@ class TrailSearcher
     end
 
     def run
+        puts "\nHello!"
         self.greeting
         self.prompt_and_display_trails
         self.get_trail_details
@@ -38,41 +39,43 @@ class TrailSearcher
     end 
 
     def greeting
-        puts "\nHello!"
         puts "\nWhat is your name? "
         user_name = gets.chomp
-        sleep 1
-        print "\nWelcome, #{user_name.capitalize}!"
-        3.times do
-            sleep 0.5
-            print "."
-        end
-        print "to"
-        3.times do
+        if user_name.match(/^[a-zA-z]+$/)
+            print "\nWelcome, " + "#{user_name.capitalize}".colorize(:light_yellow) + "!"
+            3.times do
+                sleep 0.5
+                print "."
+            end
+            print "to"
+            3.times do
+                sleep 0.3
+                print "."
+            end
             sleep 0.3
-            print "."
-        end
-        sleep 0.3
-        print "the"
-        5.times do
-            sleep 0.3
-            print "."
+            print "the"
+            5.times do
+                sleep 0.3
+                print "."
+            end 
+            13.times do 
+                sleep 0.04
+                print "."
+            end
+            4.times {puts "\n"}
+            puts "********* " + "Hiking Trail CLI Application".colorize(:light_yellow) + " *********"
+            puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:cyan)
+            puts "\n************************************************"
+            2.times {puts "\n"}
+            sleep 1
+        else 
+            puts "\nYour input of '".colorize(:light_red) + "#{user_name}".colorize(:light_yellow) + "' is invalid. Please try again.".colorize(:light_red)
+            self.greeting 
         end 
-        13.times do 
-            sleep 0.04
-            print "."
-        end
-        4.times {puts "\n"}
-        puts "********* " + "Hiking Trail CLI Application".colorize(:light_yellow) + " *********"
-        puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:cyan)
-        puts "\n************************************************"
-        2.times {puts "\n"}
-        sleep 1
     end
 
     def prompt_and_display_trails
         puts "\nPlease enter the five digit zip code of where you would like to hike."
-        sleep 1
         zip_code = gets.chomp
         if zip_code.match(/^\d{5}$/)
             results = Geocoder.search(zip_code)
@@ -82,19 +85,24 @@ class TrailSearcher
                 city = results[0].data["address"]["city"]
                 state = results[0].data["address"]["state"]
                 if city != nil 
-                    puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' located in #{city}, #{state}."
+                    puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' which is located in #{city}, #{state}."
                     sleep 1
-                    puts "\nHow many miles from #{zip_code} would you like to search for trails?\n(Enter a number between 1 and 100):"
-                    dist = gets.chomp
-                    sleep 1
-                    puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles."
-                    puts "\n"
-                    sleep 1
-                    puts "Here are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
-                    puts "\n"
-                    sleep 1
-                    self.get_trails_from_lat_long(lat, long, dist)
-                    puts "\n"
+                    puts "\nHow many miles from this location would you like to search for trails?\n(Enter a number between 1 and 100):"
+                    dist = gets.chomp.to_i
+                    if (1..100).include?(dist)
+                        sleep 1
+                        puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles."
+                        puts "\n"
+                        sleep 1
+                        puts "Here are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
+                        puts "\n"
+                        sleep 1
+                        self.get_trails_from_lat_long(lat, long, dist)
+                        puts "\n"
+                    else
+                        puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
+                        self.prompt_and_display_trails
+                    end 
                 else 
                     puts "\nThere is no record for zip code '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "'.".colorize(:light_red)
                     self.prompt_and_display_trails
