@@ -124,11 +124,6 @@ class TrailSearcher
         end
     end 
 
-    def list_previous_trails
-        @@current_list 
-        
-    end 
-
     def list_trail_details(trail_detail)
         specific_trail = Trail.all.detect {|trail| trail == trail_detail}
         2.times {puts "\n"}
