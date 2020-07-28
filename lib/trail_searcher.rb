@@ -63,31 +63,6 @@ class TrailSearcher
         end 
     end
 
-    def prompt_distance_and_validate
-        self.prompt_distance 
-        if TrailImporter.get_trails_by_lat_long(lat, long, dist)[0] != nil
-            puts "Here are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
-            puts "\n"
-            self.get_trails_from_lat_long(lat, long, @dist)
-        else 
-            puts "There are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles of #{zip_code}. Please try again.".colorize(:light_red)
-            self.prompt_distance_and_validate
-        end 
-    end 
-
-    def prompt_distance
-        puts "\nHow many miles from this location would you like to search for trails?\ (Enter a number between 1 and 100):"
-        @dist = gets.chomp
-            if (1..100).include?(dist.to_i) && dist.match(/^\d+$/)
-                puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
-                sleep 1
-                puts "\n"
-            else
-                puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
-                self.prompt_distance 
-            end 
-    end
-
     def get_trail_details
         puts "\nEnter the " + "number".colorize(:light_yellow) + " corresponding to the specific trail you would like to get more details about."
         trail_num = gets.chomp
@@ -157,6 +132,31 @@ class TrailSearcher
         puts "Elevation Gain: ".colorize(:cyan) + "#{specific_trail.elev_gain}"
         puts "\nDescription: ".colorize(:cyan) + "#{specific_trail.description}\n"
     end 
+
+    def prompt_distance_and_validate
+        self.prompt_distance 
+        if TrailImporter.get_trails_by_lat_long(lat, long, dist)[0] != nil
+            puts "Here are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
+            puts "\n"
+            self.get_trails_from_lat_long(lat, long, @dist)
+        else 
+            puts "There are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles of #{zip_code}. Please try again.".colorize(:light_red)
+            self.prompt_distance_and_validate
+        end 
+    end 
+
+    def prompt_distance
+        puts "\nHow many miles from this location would you like to search for trails?\ (Enter a number between 1 and 100):"
+        @dist = gets.chomp
+            if (1..100).include?(dist.to_i) && dist.match(/^\d+$/)
+                puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
+                sleep 1
+                puts "\n"
+            else
+                puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
+                self.prompt_distance 
+            end 
+    end
 
     def dot_delay(times, delay)
         times.times do 
