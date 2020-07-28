@@ -3,6 +3,7 @@
 This is a command line interface application that allows the user to locate hiking trails anywhere in the United States via a zip code and obtain information about the trail.
 
 
+
 ### Installing
 
 In order to run this application, you will need a private key from the Hiking Project API.
@@ -20,6 +21,7 @@ To run this application as a gem, follow these steps:
 2. Enter your private API key in `trail_importer.rb`
 3. Run `bundle install`
 4. Run `bin/hike`
+
 
 
 ### Sample
@@ -70,29 +72,20 @@ Enter '2' to enter a new zip code.
 Enter 'exit' to close this application.
 ```
 
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+Bug reports and pull requests are welcome on Github at https://github.com/dougschallmoser/hiking-trails-locator-cli-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
+ 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Doug Schallmoser** - *All work* - [DougSchallmoser](https://github.com/dougschallmoser)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 
