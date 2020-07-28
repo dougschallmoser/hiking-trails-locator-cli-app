@@ -32,7 +32,6 @@ class TrailSearcher
             puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:cyan)
             puts "\n*************************************************"
             2.times {puts "\n"}
-            sleep 1
         else 
             puts "\nYour input of '".colorize(:light_red) + "#{user_name}".colorize(:light_yellow) + "' is invalid. Please try again.".colorize(:light_red)
             self.greeting 
@@ -137,7 +136,7 @@ class TrailSearcher
         if TrailImporter.get_trails_by_lat_long(lat, long, dist)[0] != nil
             puts "Here are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
             puts "\n"
-            self.get_trails_from_lat_long(lat, long, @dist)
+            self.get_trails_from_lat_long(lat, long, dist)
         else 
             puts "There are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles of #{zip_code}. Please try again.".colorize(:light_red)
             self.prompt_distance_and_validate

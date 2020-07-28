@@ -12,13 +12,15 @@ class Trail
     end 
 
     def self.create_from_collection(trail_array)
-        if !self.all.include?(self)
-            trail_array.each {|trail| self.new(trail)}
-        end
+        trail_array.each {|trail| self.new(trail)}
     end 
 
     def self.all
         @@all
+    end 
+
+    def self.find_by_name(name)
+        self.all.detect {|trail| trail.name == name}
     end 
 
 end 
