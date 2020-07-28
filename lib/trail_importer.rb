@@ -1,5 +1,4 @@
-
-## Imports data from Hiking Project API
+# Application Programming Interface 
 
 class TrailImporter
 

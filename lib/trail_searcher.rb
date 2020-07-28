@@ -1,5 +1,4 @@
-
-## Is the interface for user interaction
+# Command Line Interface
 
 class TrailSearcher
 
@@ -29,9 +28,9 @@ class TrailSearcher
             self.dot_delay(5, 0.3)
             self.dot_delay(13, 0.04)
             4.times {puts "\n"}
-            puts "********* " + "Hiking Trail CLI Application".colorize(:light_yellow) + " *********"
+            puts "***** " + "Hiking Trails Locator CLI Application".colorize(:light_yellow) + " *****"
             puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:cyan)
-            puts "\n************************************************"
+            puts "\n*************************************************"
             2.times {puts "\n"}
             sleep 1
         else 

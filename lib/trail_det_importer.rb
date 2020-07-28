@@ -1,5 +1,4 @@
-
-## Scrapes data from specific trail page
+# Scrape
 
 class TrailDetailImporter
 

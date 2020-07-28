@@ -1,5 +1,4 @@
-
-## Class that represents data retrieved from API
+# Data Representation of API
 
 class Trail
 
