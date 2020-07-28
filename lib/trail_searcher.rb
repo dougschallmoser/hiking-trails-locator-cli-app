@@ -2,6 +2,8 @@
 
 class TrailSearcher
 
+    @@current_list = []
+
     def initialize
     end
 
@@ -63,12 +65,17 @@ class TrailSearcher
         puts "\nEnter the " + "number".colorize(:light_yellow) + " corresponding to the specific trail you would like to get more details about."
         trail_num = gets.chomp
         if (1..Trail.all.length).include?(trail_num.to_i)
-            sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
+            if @@current_list == nil 
+                sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
+            else 
+                sorted_trails = @@current_list 
+            end 
             puts "\nYou requested more details for" + " #{sorted_trails[trail_num.to_i - 1].name.upcase}".colorize(:light_yellow) + "..."
             sleep 1
             detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num.to_i - 1].url)
-            trail_detail = TrailDetails.new(detail_hash)
+            trail_detail = Trail.new(detail_hash)
             self.list_trail_details(trail_detail)
+        
         else
             puts "\nYou entered '".colorize(:light_red) + "#{trail_num}".colorize(:light_yellow) + "' which is not a valid choice.".colorize(:light_red)
             self.get_trail_details 
@@ -86,7 +93,9 @@ class TrailSearcher
             if user_input == "1"
                 puts "\nYou entered '" + "1".colorize(:light_yellow) + "'."
                 puts "\n"
-                self.list_trails 
+                @@current_list.each_with_index do |trail, index|
+                    puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:cyan) + " -" + " Length: #{trail.length} mi".colorize(:cyan) + " - #{trail.summary}\n"
+                end
                 self.get_trail_details
                 user_input = ""
             elsif user_input == "2"
@@ -109,13 +118,19 @@ class TrailSearcher
 
     def list_trails
         sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
+        @@current_list = sorted_trails 
         sorted_trails.each_with_index do |trail, index|
             puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:cyan) + " -" + " Length: #{trail.length} mi".colorize(:cyan) + " - #{trail.summary}\n"
         end
     end 
 
+    def list_previous_trails
+        @@current_list 
+        
+    end 
+
     def list_trail_details(trail_detail)
-        specific_trail = TrailDetails.all.detect {|trail| trail == trail_detail}
+        specific_trail = Trail.all.detect {|trail| trail == trail_detail}
         2.times {puts "\n"}
         puts "**********************************************"
         puts "\nTrail Details for ".colorize(:cyan) + "#{specific_trail.name.upcase}".colorize(:light_yellow)

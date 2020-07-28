@@ -2,7 +2,7 @@
 
 class Trail
 
-    attr_accessor :trail_id, :name, :summary, :length, :url
+    attr_accessor :trail_id, :name, :summary, :length, :url, :difficulty, :description, :route, :high_elev, :low_elev, :elev_gain, :dogs
 
     @@all = []
 
