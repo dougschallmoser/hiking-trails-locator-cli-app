@@ -4,7 +4,7 @@ This is a command line interface application that allows the user to locate hiki
 
 
 
-### Installing
+## Installation
 
 In order to run this application, you will need a private key from the Hiking Project API.
 To obtain a private key, create an account on https://www.hikingproject.com/.
@@ -24,7 +24,7 @@ To run this application as a gem, follow these steps:
 
 
 
-### Sample
+## Sample
 
 ```
 Please enter the five digit zip code of where you would like to hike.
@@ -87,8 +87,7 @@ Bug reports and pull requests are welcome on Github at https://github.com/dougsc
 
 This project is licensed under the MIT License.
 
+
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+I would like to acknowledge Hiking Project for continuing to offer their API free of charge.
