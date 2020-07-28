@@ -130,8 +130,6 @@ class TrailSearcher
     end 
 
     def prompt_distance_and_validate(lat, long, city, state, zip_code)
-        # puts "\nHow many miles from this location would you like to search for trails?\ (Enter a number between 1 and 100):"
-        # dist = gets.chomp
         dist = self.prompt_distance(lat, long, city, state, zip_code)
         if TrailImporter.get_trails_by_lat_long(lat, long, dist)[0] != nil
             puts "Here are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
@@ -139,7 +137,7 @@ class TrailSearcher
             self.get_trails_from_lat_long(lat, long, dist)
         else 
             puts "There are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles of #{zip_code}. Please try again.".colorize(:light_red)
-            self.prompt_distance_and_validate(lat, long, city, state, zip)
+            self.prompt_distance_and_validate(lat, long, city, state, zip_code)
         end 
     end 
 
@@ -150,11 +148,11 @@ class TrailSearcher
                 puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
                 sleep 1
                 puts "\n"
+                dist
             else
                 puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
                 self.prompt_distance(lat, long, city, state, zip_code)
             end 
-            dist 
     end
 
     def dot_delay(times, delay)
