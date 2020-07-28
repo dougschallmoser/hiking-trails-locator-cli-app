@@ -4,11 +4,13 @@ This is a command line interface application that allows the user to locate hiki
 
 
 
-## Installation
+## Getting Started
 
 In order to run this application, you will need a private key from the Hiking Project API.
 To obtain a private key, create an account on https://www.hikingproject.com/.
 Once the account is created, go to https://www.hikingproject.com/data and your private key will be available for use.
+
+# Installation
 
 To run this application in your local environment, follow these steps:
 1. Clone this repository
