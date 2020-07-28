@@ -1,34 +1,24 @@
-# Hiking Trail CLI
+# Hiking Trails Locator
 
-This command line interface application allows the user to locate hiking trails anywhere in the United States via zip code.
+This is a command line interface application that allows the user to locate hiking trails anywhere in the United States via a zip code and obtain information about the trail.
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+In order to run this application, you will need a private key from the Hiking Project API. To obtain a private key, create an account on https://www.hikingproject.com/. Once the account is created, go to https://www.hikingproject.com/data and your private key will be available for use.
 
-Say what the step will be
+To run this application in your local environment, follow these steps:
+1. Clone this repository
+2. Run `cd hiking-trails-locator-cli-app`
+3. Run `bundle install`
+4. Run `bin/hike`
 
-```
-Give the example
-```
+To run this application as a gem, follow these steps:
+1. Run `gem install hiking_trails_locator
+2. Enter your private API key in `trail_importer.rb`
+3. Run `bundle install`
+4. Run `bin/hike`
 
-And repeat
-
-```
-until finished
-```
 
 End with an example of getting some data out of the system or using it for a little demo
 
