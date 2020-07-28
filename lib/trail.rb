@@ -19,10 +19,6 @@ class Trail
         @@all
     end 
 
-    def self.find_by_description(description)
-        self.all.detect {|trail| trail.description == description}
-    end 
-
 end 
 
  

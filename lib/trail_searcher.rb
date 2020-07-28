@@ -71,8 +71,8 @@ class TrailSearcher
                 sorted_trails = @@current_list 
             end 
             puts "\nYou requested more details for" + " #{sorted_trails[trail_num.to_i - 1].name.upcase}".colorize(:light_yellow) + "..."
-            if Trail.find_by_name(sorted_trails[trail_num.to_i - 1].description) != nil 
-                self.list_trail_details(Trail.find_by_name(sorted_trails[trail_num.to_i - 1]))
+            if sorted_trails[trail_num.to_i - 1].description != nil 
+                self.list_trail_details(sorted_trails[trail_num.to_i - 1])
             else 
                 detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num.to_i - 1].url)
                 trail_detail = Trail.new(detail_hash)

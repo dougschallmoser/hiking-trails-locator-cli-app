@@ -8,7 +8,6 @@ require 'colorize'
 
 
 require_relative '../lib/trail.rb'
-require_relative '../lib/trail_details.rb'
 require_relative '../lib/trail_importer.rb'
 require_relative '../lib/trail_det_importer.rb'
 require_relative '../lib/trail_searcher.rb'
