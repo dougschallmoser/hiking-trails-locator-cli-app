@@ -29,7 +29,7 @@ class TrailSearcher
             self.dot_delay(13, 0.04)
             4.times {puts "\n"}
             puts "***** " + "Hiking Trails Locator CLI Application".colorize(:light_yellow) + " *****"
-            puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:cyan)
+            puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:light_cyan)
             puts "\n*************************************************"
             2.times {puts "\n"}
         else 
@@ -96,7 +96,7 @@ class TrailSearcher
                 puts "\nYou entered '" + "1".colorize(:light_yellow) + "'."
                 puts "\n"
                 @@current_list.each_with_index do |trail, index|
-                    puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:cyan) + " -" + " Length: #{trail.length} mi".colorize(:cyan) + " - #{trail.summary}\n"
+                    puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:light_cyan) + " -" + " Length: #{trail.length} mi".colorize(:light_cyan) + " - #{trail.summary}\n"
                 end
                 self.get_trail_details
                 user_input = ""
@@ -122,7 +122,7 @@ class TrailSearcher
         sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
         @@current_list = sorted_trails 
         sorted_trails.each_with_index do |trail, index|
-            puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:cyan) + " -" + " Length: #{trail.length} mi".colorize(:cyan) + " - #{trail.summary}\n"
+            puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:light_cyan) + " -" + " Length: #{trail.length} mi".colorize(:light_blue) + " - #{trail.summary}\n"
         end
     end 
 
@@ -130,15 +130,15 @@ class TrailSearcher
         specific_trail = Trail.all.detect {|trail| trail == trail_detail}
         2.times {puts "\n"}
         puts "**********************************************"
-        puts "\nTrail Details for ".colorize(:cyan) + "#{specific_trail.name.upcase}".colorize(:light_yellow)
-        puts "\nLength: ".colorize(:cyan) + "#{specific_trail.length} miles"
-        puts "Level of Difficulty: ".colorize(:cyan) + "#{specific_trail.difficulty}"
-        puts "Dogs Allowed?: ".colorize(:cyan) + "#{specific_trail.dogs}"
-        puts "Route Type:".colorize(:cyan) + "#{specific_trail.route}"
-        puts "Highest Elevation: ".colorize(:cyan) + "#{specific_trail.high_elev}"
-        puts "Lowest Elevation: ".colorize(:cyan) + "#{specific_trail.low_elev}"
-        puts "Elevation Gain: ".colorize(:cyan) + "#{specific_trail.elev_gain}"
-        puts "\nDescription: ".colorize(:cyan) + "#{specific_trail.description}\n"
+        puts "\nTrail Details for ".colorize(:light_cyan) + "#{specific_trail.name.upcase}".colorize(:light_yellow)
+        puts "\nLength: ".colorize(:light_cyan) + "#{specific_trail.length} miles"
+        puts "Level of Difficulty: ".colorize(:light_cyan) + "#{specific_trail.difficulty}"
+        puts "Dogs Allowed?: ".colorize(:light_cyan) + "#{specific_trail.dogs}"
+        puts "Route Type:".colorize(:light_cyan) + "#{specific_trail.route}"
+        puts "Highest Elevation: ".colorize(:light_cyan) + "#{specific_trail.high_elev}"
+        puts "Lowest Elevation: ".colorize(:light_cyan) + "#{specific_trail.low_elev}"
+        puts "Elevation Gain: ".colorize(:light_cyan) + "#{specific_trail.elev_gain}"
+        puts "\nDescription: ".colorize(:light_cyan) + "#{specific_trail.description}\n"
     end 
 
     def prompt_distance_and_validate(lat, long, city, state, zip_code)
