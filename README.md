@@ -2,6 +2,7 @@
 
 This is a command line interface application that allows the user to locate hiking trails anywhere in the United States via a zip code and obtain additional information about any trail. The user is also given control over how many miles to extend their search for trails.
 
+The user is prompted for their name, zip code and distance of search radius. The application returns a list of up to 10 trails meeting this criteria in ascending order of trail length. The user is then prompted to choose a number corresponding to the trail in the list that they want to see additional details for. The application provides the details for the trail of choice and prompts the user once more with three choices: Go back to trail list, enter a new zip code, or exit.
 
 
 ## Getting Started

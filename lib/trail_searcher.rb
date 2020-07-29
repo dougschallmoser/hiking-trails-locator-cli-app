@@ -60,7 +60,7 @@ class TrailSearcher
             self.prompt_and_display_trails 
         end 
     end
-
+ 
     def get_trail_details
         puts "\nEnter the " + "number".colorize(:light_yellow) + " corresponding to the specific trail you would like to get more details about."
         trail_num = gets.chomp

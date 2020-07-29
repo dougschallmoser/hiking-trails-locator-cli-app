@@ -1,4 +1,4 @@
-# Data Representation of API
+# Class Model of API/Scrape
 
 class Trail
 
