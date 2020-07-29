@@ -13,18 +13,12 @@ Once the account is created, go to https://www.hikingproject.com/data and your p
 
 ### Installation
 
-To run this application in your local environment, follow these steps:
+To run this application in your local environment, please follow these steps:
+
 1. Clone this repository
 2. Run `cd hiking-trails-locator-cli-app`
 3. Run `bundle install`
 4. Run `bin/hike`
-
-To run this application as a gem, follow these steps:
-1. Run `gem install hiking_trails_locator
-2. Enter your private API key in `trail_importer.rb`
-3. Run `bundle install`
-4. Run `bin/hike`
-
 
 
 ## Sample
