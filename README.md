@@ -18,7 +18,7 @@ To run this application in your local environment, please follow these steps:
 1. Clone this repository
 2. Run `cd hiking-trails-locator-cli-app`
 3. Run `bundle install`
-4. Run `bin/hike`
+4. Run `ruby bin/hike`
 
 
 ## Sample
