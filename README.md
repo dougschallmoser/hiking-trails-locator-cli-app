@@ -82,7 +82,7 @@ Bug reports and pull requests are welcome on Github at https://github.com/dougsc
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License(https://opensource.org/licenses/MIT)
 
 
 ## Acknowledgments
