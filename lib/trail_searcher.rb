@@ -63,22 +63,28 @@ class TrailSearcher
         puts "\nEnter the " + "number".colorize(:light_yellow) + " corresponding to the specific trail you would like to get more details about."
         trail_num = gets.chomp
         if (1..Trail.all.length).include?(trail_num.to_i)
-            if @@current_list == nil 
-                sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
-            else 
-                sorted_trails = @@current_list 
-            end 
-            puts "\nYou requested more details for" + " #{sorted_trails[trail_num.to_i - 1].name.upcase}".colorize(:light_yellow) + "..."
-            if sorted_trails[trail_num.to_i - 1].description != nil 
-                self.list_trail_details(sorted_trails[trail_num.to_i - 1])
-            else 
-                detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num.to_i - 1].url)
-                trail_detail = Trail.new(detail_hash)
-                self.list_trail_details(trail_detail)
-            end 
+            self.get_trail_details_checker(trail_num)
         else
             puts "\nYou entered '".colorize(:light_red) + "#{trail_num}".colorize(:light_yellow) + "' which is not a valid choice.".colorize(:light_red)
             self.get_trail_details 
+        end 
+    end 
+
+    def get_trail_details_checker(trail_num)
+        if @@current_list == nil 
+            sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
+        else 
+            sorted_trails = @@current_list 
+        end 
+
+        puts "\nYou requested more details for" + " #{sorted_trails[trail_num.to_i - 1].name.upcase}".colorize(:light_yellow) + "..."
+
+        if sorted_trails[trail_num.to_i - 1].description != nil 
+            self.list_trail_details(sorted_trails[trail_num.to_i - 1])
+        else 
+            detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num.to_i - 1].url)
+            trail_detail = Trail.new(detail_hash)
+            self.list_trail_details(trail_detail)
         end 
     end 
 
@@ -90,25 +96,31 @@ class TrailSearcher
             puts "Enter '" + "2".colorize(:light_yellow) + "' to enter a new zip code."
             puts "Enter '" + "exit".colorize(:light_yellow) + "' to close this application."
             user_input = gets.chomp
-            if user_input == "1"
-                puts "\nYou entered '" + "1".colorize(:light_yellow) + "'."
-                puts "\n"
-                @@current_list.each_with_index do |trail, index|
-                    puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:light_cyan) + " -" + " Length: #{trail.length} mi".colorize(:light_cyan) + " - #{trail.summary}\n"
-                end
-                self.get_trail_details
-                user_input = ""
-            elsif user_input == "2"
-                puts "\nYou entered '" + "2".colorize(:light_yellow) + "'."
-                Trail.all.clear
-                self.prompt_and_display_trails 
-                self.get_trail_details
-                user_input = ""
-            elsif user_input != "exit"
-                puts "\nYour input of '".colorize(:light_red) + "#{user_input}".colorize(:light_yellow) + "' is invalid! Please follow the instructions below:".colorize(:light_red)
-            end 
+            self.exit_logic(user_input)
         end
     end 
+
+    def exit_logic(user_input)
+        if user_input == "1"
+            puts "\nYou entered '" + "1".colorize(:light_yellow) + "'."
+            puts "\n"
+            @@current_list.each_with_index do |trail, index|
+                puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:light_cyan) + " -" + " Length: #{trail.length} mi".colorize(:light_cyan) + " - #{trail.summary}\n"
+            end
+            self.get_trail_details
+            user_input = ""
+        elsif user_input == "2"
+            puts "\nYou entered '" + "2".colorize(:light_yellow) + "'."
+            Trail.all.clear
+            self.prompt_and_display_trails 
+            self.get_trail_details
+            self.exit_prompt
+            user_input = ""
+        elsif user_input != "exit"
+            puts "\nYour input of '".colorize(:light_red) + "#{user_input}".colorize(:light_yellow) + "' is invalid! Please follow the instructions below:".colorize(:light_red)
+        end 
+    end 
+
 
     def get_trails_from_lat_long(lat, long, dist)
         trails_array = TrailImporter.get_trails_by_lat_long(lat, long, dist)
@@ -154,14 +166,14 @@ class TrailSearcher
     def prompt_distance(lat, long, city, state, zip_code)
         puts "\nHow many miles from this location would you like to search for trails?\ (Enter a number between 1 and 100):"
         dist = gets.chomp
-            if (1..100).include?(dist.to_i) && dist.match(/^\d+$/)
-                puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
-                puts "\n"
-                dist
-            else
-                puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
-                self.prompt_distance(lat, long, city, state, zip_code)
-            end 
+        if (1..100).include?(dist.to_i) && dist.match(/^\d+$/)
+            puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
+            puts "\n"
+            dist
+        else
+            puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
+            self.prompt_distance(lat, long, city, state, zip_code)
+        end 
     end
 
     def dot_delay(times, delay)
