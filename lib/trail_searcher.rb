@@ -28,9 +28,9 @@ class TrailSearcher
             self.dot_delay(5, 0.3)
             self.dot_delay(13, 0.04)
             4.times {puts "\n"}
-            puts "***** " + "Hiking Trails Locator CLI Application".colorize(:light_yellow) + " *****"
+            puts "***** ".colorize(:light_blue) + "Hiking Trails Locator CLI Application".colorize(:light_yellow) + " *****".colorize(:light_blue)
             puts "\nWith this application, you will be able to locate\n hiking trails anywhere in the United States.".colorize(:light_cyan)
-            puts "\n*************************************************"
+            puts "\n*************************************************".colorize(:light_blue)
             2.times {puts "\n"}
         else 
             puts "\nYour input of '".colorize(:light_red) + "#{user_name}".colorize(:light_yellow) + "' is invalid. Please try again.".colorize(:light_red)
