@@ -7,7 +7,7 @@ class Trail
     @@all = []
 
     def initialize(trail_hash)
-        trail_hash.each {|k,v| self.send("#{k}=", v)}
+        trail_hash.each {|attr_name, attr_value| self.send("#{attr_name}=", attr_value)}
         @@all << self 
     end 
 

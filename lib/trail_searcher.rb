@@ -49,7 +49,6 @@ class TrailSearcher
                 city = results[0].data["address"]["city"]
                 state = results[0].data["address"]["state"]
                 puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' which is located in #{city}, #{state}."
-                sleep 1
                 self.prompt_distance_and_validate(lat, long, city, state, zip_code)
             else 
                 puts "\nThere is no record for zip code '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "'.".colorize(:light_red)
@@ -158,7 +157,6 @@ class TrailSearcher
         dist = gets.chomp
             if (1..100).include?(dist.to_i) && dist.match(/^\d+$/)
                 puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
-                sleep 1
                 puts "\n"
                 dist
             else
