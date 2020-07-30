@@ -118,6 +118,12 @@ class TrailSearcher
             user_input = ""
         elsif user_input != "exit"
             puts "\nYour input of '".colorize(:light_red) + "#{user_input}".colorize(:light_yellow) + "' is invalid! Please follow the instructions below:".colorize(:light_red)
+        else 
+            puts "\n"
+            puts "\n*******************************************".colorize(:light_blue)
+            puts "\nThank you for using Hiking Trails Locator!".colorize(:light_yellow)
+            puts "\n          Have fun on the trail!".colorize(:light_cyan)
+            puts "\n*******************************************\n".colorize(:light_blue)
         end 
     end 
 
