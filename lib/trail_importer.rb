@@ -9,8 +9,8 @@ class TrailImporter
         uri = URI.parse(url)
         response = Net::HTTP.get_response(uri)
         output = JSON.parse(response.body)
-        trail_choices = []
-        output["trails"].each do |trail|
+        # trail_choices = []
+        output["trails"].collect do |trail|
             hash = {
                 :trail_id => trail["id"],
                 :name => trail["name"],
@@ -18,9 +18,8 @@ class TrailImporter
                 :length => trail["length"],
                 :url => trail["url"]
             }
-            trail_choices << hash 
+            hash
         end 
-        trail_choices 
     end
 
 end
