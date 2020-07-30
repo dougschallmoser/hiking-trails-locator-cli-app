@@ -1,4 +1,3 @@
-# Class Model of API/Scrape
 
 class Trail
 

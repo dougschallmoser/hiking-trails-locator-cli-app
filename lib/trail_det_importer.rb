@@ -1,4 +1,3 @@
-# Scrape
 
 class TrailDetailImporter
 

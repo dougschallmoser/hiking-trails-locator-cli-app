@@ -1,4 +1,3 @@
-# Command Line Interface
 
 class TrailSearcher
 
