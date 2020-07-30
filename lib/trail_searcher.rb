@@ -3,9 +3,6 @@ class TrailSearcher
 
     @@current_list = []
 
-    def initialize
-    end
-
     def run
         puts "\nHello!"
         self.greeting
