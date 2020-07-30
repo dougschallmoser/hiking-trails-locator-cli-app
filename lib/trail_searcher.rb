@@ -41,21 +41,25 @@ class TrailSearcher
         puts "\nPlease enter the five digit zip code of where you would like to hike."
         zip_code = gets.chomp
         if zip_code.match(/^\d{5}$/)
-            results = Geocoder.search(zip_code)
-            if results[0] != nil && results[0].data["address"]["city"] != nil
-                lat = results[0].data["lat"]
-                long = results[0].data["lon"]
-                city = results[0].data["address"]["city"]
-                state = results[0].data["address"]["state"]
-                puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' which is located in #{city}, #{state}."
-                self.prompt_distance_and_validate(lat, long, city, state, zip_code)
-            else 
-                puts "\nThere is no record for zip code '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "'.".colorize(:light_red)
-                self.prompt_and_display_trails
-            end 
+            self.prompt_zip_conversion(zip_code)
         else 
             puts "\nYou entered '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "' which is an invalid zip code.".colorize(:light_red)
             self.prompt_and_display_trails 
+        end 
+    end
+
+    def prompt_zip_conversion(zip_code)
+        results = Geocoder.search(zip_code)
+        if results[0] != nil && results[0].data["address"]["city"] != nil
+            lat = results[0].data["lat"]
+            long = results[0].data["lon"]
+            city = results[0].data["address"]["city"]
+            state = results[0].data["address"]["state"]
+            puts "\nYou entered zip code '" + "#{zip_code}".colorize(:light_yellow) + "' which is located in #{city}, #{state}."
+            self.prompt_distance_and_validate(lat, long, city, state, zip_code)
+        else 
+            puts "\nThere is no record for zip code '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "'.".colorize(:light_red)
+            self.prompt_and_display_trails
         end 
     end
  
