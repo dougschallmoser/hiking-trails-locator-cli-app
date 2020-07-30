@@ -14,6 +14,11 @@ class Trail
         trail_array.each {|trail| self.new(trail)}
     end 
 
+    def add_trail_attributes(attributes_hash)
+        attributes_hash.each {|attr_name, attr_value| self.send("#{attr_name}=", attr_value)}
+        self
+    end 
+
     def self.all
         @@all
     end 
