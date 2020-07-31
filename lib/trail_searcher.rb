@@ -74,9 +74,11 @@ class TrailSearcher
             puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
             puts "\n"
             self.get_trails(lat, long, dist, city, state, zip_code)
-        else
-            puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
+        elsif dist != "restart"
+            puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid".colorize(:light_red)
             self.prompt_distance(lat, long, city, state, zip_code)
+        else 
+            self.prompt_zip
         end 
     end
 
@@ -88,7 +90,8 @@ class TrailSearcher
             Trail.create_from_collection(trails_array)
             self.list_trails
         else
-            puts "There are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles of #{zip_code}. Please try again.".colorize(:light_red)
+            puts "There are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles of #{zip_code}.".colorize(:light_red)
+            puts "Please try again or enter `".colorize(:light_red) + "restart".colorize(:light_yellow) + "` to enter a new zip code.".colorize(:light_red)
             self.prompt_distance(lat, long, city, state, zip_code)
         end
     end
