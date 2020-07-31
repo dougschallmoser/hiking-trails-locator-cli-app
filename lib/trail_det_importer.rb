@@ -1,8 +1,8 @@
 
 class TrailDetailImporter
 
-    def self.get_trail_details(trail_url)
-        doc = Nokogiri::HTML(open(trail_url))
+    def self.get_trail_details_by_url(url)
+        doc = Nokogiri::HTML(open(url))
         details = {
         :name => doc.css("div.row").css("h1").text.strip,
         :difficulty => doc.css("div.trail-subheader span.difficulty-text").text.strip,

@@ -122,7 +122,7 @@ class TrailSearcher
         if sorted_trails[trail_num.to_i - 1].description != nil 
             self.list_trail_details(sorted_trails[trail_num.to_i - 1])
         else 
-            detail_hash = TrailDetailImporter.get_trail_details(sorted_trails[trail_num.to_i - 1].url)
+            detail_hash = TrailDetailImporter.get_trail_details_by_url(sorted_trails[trail_num.to_i - 1].url)
             trail_detail = sorted_trails[trail_num.to_i - 1].add_trail_attributes(detail_hash)
             self.list_trail_details(trail_detail)
         end 
