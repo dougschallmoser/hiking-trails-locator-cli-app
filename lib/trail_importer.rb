@@ -1,4 +1,3 @@
-# Application Programming Interface 
 
 class TrailImporter
 
@@ -21,4 +20,5 @@ class TrailImporter
     end
     
 end
+
 
