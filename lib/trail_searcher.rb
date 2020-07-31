@@ -89,7 +89,7 @@ class TrailSearcher
             self.list_trails
         else
             puts "There are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles of #{zip_code}. Please try again.".colorize(:light_red)
-            self.get_trails(lat, long, city, state, zip_code)
+            self.prompt_distance(lat, long, city, state, zip_code)
         end
     end
 
