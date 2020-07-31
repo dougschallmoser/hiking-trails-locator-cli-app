@@ -6,7 +6,7 @@ class TrailSearcher
     def run
         puts "\nHello!"
         self.greeting
-        self.prompt_and_display_trails
+        self.prompt_zip
         self.get_trail_details
         self.exit_prompt
     end 
@@ -41,18 +41,18 @@ class TrailSearcher
         end
     end 
 
-    def prompt_and_display_trails
+    def prompt_zip
         puts "\nPlease enter the five digit zip code of where you would like to hike."
         zip_code = gets.chomp
         if zip_code.match(/^\d{5}$/)
-            self.prompt_zip_conversion(zip_code)
+            self.zip_conversion(zip_code)
         else 
             puts "\nYou entered '".colorize(:light_red) + "#{zip_code}".colorize(:light_yellow) + "' which is an invalid zip code.".colorize(:light_red)
-            self.prompt_and_display_trails 
+            self.prompt_zip
         end 
     end
 
-    def prompt_zip_conversion(zip_code)
+    def zip_conversion(zip_code)
         results = Geocoder.search(zip_code)
         if results[0] != nil && results[0].data["address"]["city"] != nil
             lat = results[0].data["lat"]
@@ -168,7 +168,7 @@ class TrailSearcher
         elsif user_input == "2"
             puts "\nYou entered '" + "2".colorize(:light_yellow) + "'."
             Trail.all.clear
-            self.prompt_and_display_trails 
+            self.prompt_zip
             self.get_trail_details
             self.exit_prompt
             user_input = ""
