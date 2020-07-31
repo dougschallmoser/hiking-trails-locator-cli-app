@@ -73,15 +73,15 @@ class TrailSearcher
         if (1..100).include?(dist.to_i) && dist.match(/^\d+$/)
             puts "\nYou entered '" + "#{dist}".colorize(:light_yellow) + "' miles.\n"
             puts "\n"
-            self.get_trails_from_lat_long(lat, long, dist, city, state, zip_code)
+            self.get_trails(lat, long, dist, city, state, zip_code)
         else
             puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid. Please try again.".colorize(:light_red)
             self.prompt_distance(lat, long, city, state, zip_code)
         end 
     end
 
-    def get_trails_from_lat_long(lat, long, dist, city, state, zip_code)
-        trails_array = TrailImporter.get_trails_by_lat_long(lat, long, dist)
+    def get_trails(lat, long, dist, city, state, zip_code)
+        trails_array = TrailImporter.get_trails_by_lat_long_dist(lat, long, dist)
         if trails_array[0] != nil 
             puts "Here are the trails available within " + "#{dist} miles".colorize(:light_yellow) + " of" + " #{city}, #{state} #{zip_code}".colorize(:light_yellow) + ":"
             puts "\n"
@@ -89,7 +89,7 @@ class TrailSearcher
             self.list_trails
         else
             puts "There are no trails available within '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles of #{zip_code}. Please try again.".colorize(:light_red)
-            self.get_trails_from_lat_long(lat, long, city, state, zip_code)
+            self.get_trails(lat, long, city, state, zip_code)
         end
     end
 
