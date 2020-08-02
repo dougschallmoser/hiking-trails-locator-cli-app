@@ -97,9 +97,8 @@ class TrailSearcher
     end
 
     def list_trails
-        sorted_trails = Trail.all.sort {|a,b| a.length <=> b.length}
-        @@current_list = sorted_trails 
-        sorted_trails.each_with_index do |trail, index|
+        @@current_list = Trail.all.sort {|a,b| a.length <=> b.length}
+        @@current_list.each_with_index do |trail, index|
             puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:light_cyan) + " -" + " Length: #{trail.length} mi".colorize(:light_blue) + " - #{trail.summary}\n"
         end
     end 
