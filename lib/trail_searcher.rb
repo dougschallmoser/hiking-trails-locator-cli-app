@@ -75,7 +75,7 @@ class TrailSearcher
             puts "\n"
             self.get_trails(lat, long, dist, city, state, zip_code)
         elsif dist != "restart"
-            puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid".colorize(:light_red)
+            puts "\nYou entered '".colorize(:light_red) + "#{dist}".colorize(:light_yellow) + "' miles which is invalid.".colorize(:light_red)
             self.prompt_distance(lat, long, city, state, zip_code)
         else 
             self.prompt_zip
@@ -121,13 +121,13 @@ class TrailSearcher
             self.list_trail_details(@@current_list[trail_num.to_i - 1])
         else 
             detail_hash = TrailDetailImporter.get_trail_details_by_url(@@current_list[trail_num.to_i - 1].url)
-            trail_detail = @@current_list[trail_num.to_i - 1].add_trail_attributes(detail_hash)
-            self.list_trail_details(trail_detail)
+            chosen_trail = @@current_list[trail_num.to_i - 1].add_trail_attributes(detail_hash)
+            self.list_trail_details(chosen_trail)
         end 
     end 
 
-    def list_trail_details(trail_detail)
-        specific_trail = Trail.all.detect {|trail| trail == trail_detail}
+    def list_trail_details(chosen_trail)
+        specific_trail = Trail.all.detect {|trail| trail == chosen_trail}
         2.times {puts "\n"}
         puts "**********************************************"
         puts "\nTrail Details for ".colorize(:light_cyan) + "#{specific_trail.name.upcase}".colorize(:light_yellow)
