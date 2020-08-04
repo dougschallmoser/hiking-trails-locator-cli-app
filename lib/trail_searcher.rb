@@ -1,8 +1,6 @@
 
 class TrailSearcher
 
-    attr_accessor :current_list
-
     def run
         puts "\nHello!"
         self.greeting
