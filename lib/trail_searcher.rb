@@ -1,7 +1,7 @@
 
 class TrailSearcher
 
-    @@current_list = []
+    attr_accessor :current_list
 
     def run
         puts "\nHello!"
@@ -97,8 +97,7 @@ class TrailSearcher
     end
 
     def list_trails
-        @@current_list = Trail.all.sort {|a,b| a.length <=> b.length}
-        @@current_list.each_with_index do |trail, index|
+        Trail.sort_all.each_with_index do |trail, index|
             puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:light_cyan) + " -" + " Length: #{trail.length} mi".colorize(:light_blue) + " - #{trail.summary}\n"
         end
     end 
@@ -115,12 +114,12 @@ class TrailSearcher
     end 
 
     def get_trail_details(trail_num)
-        puts "\nYou requested more details for" + " #{@@current_list[trail_num.to_i - 1].name.upcase}".colorize(:light_yellow) + "..."
-        if @@current_list[trail_num.to_i - 1].description != nil 
-            self.list_trail_details(@@current_list[trail_num.to_i - 1])
+        puts "\nYou requested more details for" + " #{Trail.sort_all[trail_num.to_i - 1].name.upcase}".colorize(:light_yellow) + "..."
+        if Trail.sort_all[trail_num.to_i - 1].description != nil 
+            self.list_trail_details(Trail.sort_all[trail_num.to_i - 1])
         else 
-            detail_hash = TrailDetailImporter.get_trail_details_by_url(@@current_list[trail_num.to_i - 1].url)
-            chosen_trail = @@current_list[trail_num.to_i - 1].add_trail_attributes(detail_hash)
+            detail_hash = TrailDetailImporter.get_trail_details_by_url(Trail.sort_all[trail_num.to_i - 1].url)
+            chosen_trail = Trail.sort_all[trail_num.to_i - 1].add_trail_attributes(detail_hash)
             self.list_trail_details(chosen_trail)
         end 
     end 
@@ -156,7 +155,7 @@ class TrailSearcher
         if user_input == "1"
             puts "\nYou entered '" + "1".colorize(:light_yellow) + "'."
             puts "\n"
-            @@current_list.each_with_index do |trail, index|
+            Trail.sort_all.each_with_index do |trail, index|
                 puts "#{index + 1}. ".colorize(:light_yellow) + "#{trail.name.upcase}".colorize(:light_cyan) + " -" + " Length: #{trail.length} mi".colorize(:light_cyan) + " - #{trail.summary}\n"
             end
             self.prompt_trail_details

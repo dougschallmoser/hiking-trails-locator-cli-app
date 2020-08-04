@@ -6,7 +6,7 @@ class TrailDetailImporter
         details = {
         :name => doc.css("div.row").css("h1").text.strip,
         :difficulty => doc.css("div.trail-subheader span.difficulty-text").text.strip,
-        :length => doc.css("div.mt-2#trail-stats-bar h3")[0].text.strip,
+        # :length => doc.css("div.mt-2#trail-stats-bar h3")[0].text.strip,
         :route => doc.css("div.mt-2#trail-stats-bar h3")[2].text.strip,
         :high_elev => doc.css("div.mt-2#trail-stats-bar h3")[3].css("span.imperial").text.strip,
         :low_elev => doc.css("div.mt-2#trail-stats-bar h3")[4].css("span.imperial").text.strip,

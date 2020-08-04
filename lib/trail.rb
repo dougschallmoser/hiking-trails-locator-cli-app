@@ -23,6 +23,10 @@ class Trail
         @@all
     end 
 
+    def self.sort_all
+        self.all.sort_by {|a| a.length}
+    end 
+
 end 
 
  
