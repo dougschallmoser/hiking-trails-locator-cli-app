@@ -9,10 +9,10 @@ class TrailDetailImporter
         :high_elev => doc.css("div.mt-2#trail-stats-bar h3")[3].css("span.imperial").text.strip,
         :low_elev => doc.css("div.mt-2#trail-stats-bar h3")[4].css("span.imperial").text.strip,
         :elev_gain => doc.css("div.mt-2#trail-stats-bar h3")[5].css("span.imperial").text.strip,
-        :dogs => doc.css("div.main-content-container div.mb-1 h3.inline")[0].css("span.font-body").text.strip,
+        :dogs => doc.css("div.mb-1 h3.inline")[0].css("span.font-body").text.strip,
         }
-        if doc.css("div.main-content-container").css("div.mb-1")[5] != nil
-            details[:description] = doc.css("div.main-content-container").css("div.mb-1")[5].text.strip
+        if doc.css("div.mb-1")[5] != nil
+            details[:description] = doc.css("div.mb-1")[5].text.strip
         else
             details[:description] = "Not available"
         end 
