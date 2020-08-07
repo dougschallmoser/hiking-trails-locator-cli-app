@@ -28,5 +28,4 @@ class Trail
     end 
 
 end 
-
  
