@@ -123,19 +123,18 @@ class TrailSearcher
         end 
     end 
 
-    def list_trail_details(specific_trail)
-        # specific_trail = Trail.find_by_trail_id(chosen_id)
+    def list_trail_details(user_trail)
         2.times {puts "\n"}
         puts "**********************************************"
-        puts "\nTrail Details for ".colorize(:light_cyan) + "#{specific_trail.name.upcase}".colorize(:light_yellow)
-        puts "\nLength: ".colorize(:light_cyan) + "#{specific_trail.length} miles"
-        puts "Level of Difficulty: ".colorize(:light_cyan) + "#{specific_trail.difficulty}"
-        puts "Dogs Allowed?: ".colorize(:light_cyan) + "#{specific_trail.dogs}"
-        puts "Route Type:".colorize(:light_cyan) + "#{specific_trail.route}"
-        puts "Highest Elevation: ".colorize(:light_cyan) + "#{specific_trail.high_elev}"
-        puts "Lowest Elevation: ".colorize(:light_cyan) + "#{specific_trail.low_elev}"
-        puts "Elevation Gain: ".colorize(:light_cyan) + "#{specific_trail.elev_gain}"
-        puts "\nDescription: ".colorize(:light_cyan) + "#{specific_trail.description}\n"
+        puts "\nTrail Details for ".colorize(:light_cyan) + "#{user_trail.name.upcase}".colorize(:light_yellow)
+        puts "\nLength: ".colorize(:light_cyan) + "#{user_trail.length} miles"
+        puts "Level of Difficulty: ".colorize(:light_cyan) + "#{user_trail.difficulty}"
+        puts "Dogs Allowed?: ".colorize(:light_cyan) + "#{user_trail.dogs}"
+        puts "Route Type:".colorize(:light_cyan) + "#{user_trail.route}"
+        puts "Highest Elevation: ".colorize(:light_cyan) + "#{user_trail.high_elev}"
+        puts "Lowest Elevation: ".colorize(:light_cyan) + "#{user_trail.low_elev}"
+        puts "Elevation Gain: ".colorize(:light_cyan) + "#{user_trail.elev_gain}"
+        puts "\nDescription: ".colorize(:light_cyan) + "#{user_trail.description}\n"
     end 
 
     def exit_prompt
