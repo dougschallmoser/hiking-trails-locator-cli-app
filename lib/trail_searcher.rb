@@ -118,8 +118,8 @@ class TrailSearcher
             self.list_trail_details(user_trail)
         else 
             detail_hash = TrailDetailImporter.get_trail_details_by_url(user_trail.url)
-            chosen_trail = user_trail.add_trail_attributes(detail_hash)
-            self.list_trail_details(chosen_trail)
+            user_trail.add_trail_attributes(detail_hash)
+            self.list_trail_details(user_trail)
         end 
     end 
 
