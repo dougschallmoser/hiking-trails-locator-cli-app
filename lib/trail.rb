@@ -62,7 +62,6 @@ class Trail
 
         rows = DB[:conn].execute(sql)
         self.new_from_rows(rows)
-        # @@all
     end 
 
     def self.sort_all
@@ -70,14 +69,6 @@ class Trail
 
         rows = DB[:conn].execute(sql)
         self.new_from_rows(rows)
-        # self.all.sort_by {|a| a.length}
-    end 
-
-    def self.find_by_trail_id(trail_id)
-        sql = "SELECT * FROM trails WHERE trail_id = ?"
-
-        row = DB[:conn].execute(sql, trail_id)[0]
-        self.new_from_db(row)
     end 
 
     def self.create_table
