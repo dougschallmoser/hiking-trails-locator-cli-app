@@ -119,12 +119,12 @@ class TrailSearcher
         else 
             detail_hash = TrailDetailImporter.get_trail_details_by_url(user_trail.url)
             chosen_trail = user_trail.add_trail_attributes(detail_hash)
-            self.list_trail_details(chosen_trail)
+            self.list_trail_details(user_trail)
         end 
     end 
 
-    def list_trail_details(chosen_trail)
-        specific_trail = Trail.all.detect {|trail| trail == chosen_trail}
+    def list_trail_details(specific_trail)
+        # specific_trail = Trail.find_by_trail_id(chosen_id)
         2.times {puts "\n"}
         puts "**********************************************"
         puts "\nTrail Details for ".colorize(:light_cyan) + "#{specific_trail.name.upcase}".colorize(:light_yellow)
@@ -161,7 +161,8 @@ class TrailSearcher
             user_input = ""
         elsif user_input == "2"
             puts "\nYou entered '" + "2".colorize(:light_yellow) + "'."
-            Trail.all.clear
+            Trail.clear_all
+            Trail.create_table
             self.prompt_zip
             self.prompt_trail_details
             self.exit_prompt
