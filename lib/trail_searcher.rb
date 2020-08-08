@@ -114,13 +114,11 @@ class TrailSearcher
     def get_trail_details(trail_num)
         user_trail = Trail.sort_all[trail_num.to_i - 1]
         puts "\nYou requested more details for" + " #{user_trail.name.upcase}".colorize(:light_yellow) + "..."
-        if user_trail.description != nil 
-            self.list_trail_details(user_trail)
-        else 
+        if user_trail.description == nil 
             detail_hash = TrailDetailImporter.get_trail_details_by_url(user_trail.url)
             chosen_trail = user_trail.add_trail_attributes(detail_hash)
-            self.list_trail_details(user_trail)
-        end 
+        end
+        self.list_trail_details(user_trail)
     end 
 
     def list_trail_details(user_trail)
